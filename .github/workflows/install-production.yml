@@ -1,0 +1,41 @@
+name: Install Production Release
+
+on:
+    workflow_call:
+        secrets:
+          prod-org-auth-url:
+            required: true
+        inputs:
+          cumulusci-version:
+            required: false
+            type: string
+          sfdx-version:
+            required: false
+            type: string
+
+jobs:
+  install-production:
+    name: "Install Production Release (Unlocked Package)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup CumulusCI
+        uses: nimba-actions/setup-cumulus@v1
+        with:
+          cumulusci-version: ${{ inputs.cumulusci-version }}
+          sfdx-version: ${{ inputs.sfdx-version }}
+
+      - name: Authenticate with Target Org
+        uses: nimba-actions/authorize-org@v1
+        with:
+          auth-url: ${{ secrets.prod-org-auth-url }}
+          org-name: "prod"
+          dev-hub: false
+
+      - name: Install Prod Release
+        uses: nimba-actions/run-flow@v1
+        with:
+          org-name: "prod"
+          flow-name: install_prod
