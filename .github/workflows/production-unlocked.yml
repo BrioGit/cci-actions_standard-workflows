@@ -1,0 +1,32 @@
+name: Upload Unlocked Package Production Release
+
+on:
+  workflow_call:
+    secrets:
+      dev-hub-auth-url:
+        required: true
+    inputs:
+      cumulusci-version:
+        required: false
+        type: string
+      org-name:
+        required: false
+        type: string
+        default: dev
+
+jobs:
+  upload-beta-release:
+    name: "Upload Production Release (Unlocked Package)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          path: project_repo
+
+      - uses: nimba-actions/run-flow-scratch@v1 
+        with:
+          dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
+          org-name: '${{ inputs.org-name }}'
+          cumulusci-version: '${{ inputs.cumulusci-version }}'
+          flow-name: release_unlocked_production
