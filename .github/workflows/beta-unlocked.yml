@@ -16,6 +16,11 @@ on:
         required: false
         type: string
         default: dev
+      debug:
+        description: 'Display debug logs during Flow Execution'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   upload-beta-release:
@@ -33,4 +38,5 @@ jobs:
           org-name: '${{ inputs.org-name }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
+          debug: '${{ inputs.debug }}'
           flow-name: release_unlocked_beta
