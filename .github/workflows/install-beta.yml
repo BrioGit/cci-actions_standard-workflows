@@ -3,7 +3,7 @@ name: Install Beta Release
 on:
   workflow_call:
     secrets:
-      beta-org-auth-url:
+      dev-hub-auth-url:
         required: true
     inputs:
       cumulusci-version:
@@ -26,15 +26,12 @@ jobs:
         with:
           cumulusci-version: ${{ inputs.cumulusci-version }}
 
-      - name: Authenticate with Target Org
-        uses: nimba-actions/authorize-org@v1
-        with:
-          auth-url: ${{ secrets.beta-org-auth-url }}
-          org-name: "beta-org"
-          dev-hub: false
-      
       - name: Deploy Beta Dependencies
-        uses: nimba-actions/run-flow@v1
+        uses: nimba-actions/run-flow-scratch@v1.0.2
         with:
-          org-name: "beta-org"
+          dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
+          org-name: '${{ inputs.org-name }}'
+          cumulusci-version: '${{ inputs.cumulusci-version }}'
+          sfdx-version: '${{ inputs.sfdx-version }}'
+          debug: '${{ inputs.debug }}'
           flow-name: ci_beta
