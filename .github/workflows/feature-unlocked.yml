@@ -41,5 +41,5 @@ jobs:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
-          flow-options: "-o github_package_data__context unlocked_context"
+          flow-options: "-o github_package_data__context 'Build Unlocked Test Package'"
 
