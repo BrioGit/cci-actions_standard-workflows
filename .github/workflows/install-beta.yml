@@ -12,6 +12,11 @@ on:
       sfdx-version:
         required: false
         type: string
+      debug:
+        description: 'Display debug logs during Flow Execution'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   install-beta:
