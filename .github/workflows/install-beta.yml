@@ -35,7 +35,7 @@ jobs:
         uses: nimba-actions/run-flow-scratch@v1.0.3
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
-          org-name: '${{ inputs.org-name }}'
+          org-name: beta
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
           debug: '${{ inputs.debug }}'
