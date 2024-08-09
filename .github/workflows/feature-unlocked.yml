@@ -36,7 +36,7 @@ jobs:
     needs:
       - build-unlocked-test-package
     steps:
-      - uses: nimba-actions/feature-test-2gp@main
+      - uses: nimba-actions/feature-test-2gp@v1.1
         with:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
