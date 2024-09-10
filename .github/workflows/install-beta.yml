@@ -12,6 +12,9 @@ on:
       sfdx-version:
         required: false
         type: string
+      flow-options:
+        required: false
+        type: string
       debug:
         description: 'Display debug logs during Flow Execution'
         required: false
@@ -39,4 +42,6 @@ jobs:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
           debug: '${{ inputs.debug }}'
+          flow-options: '${{ inputs.flow-options }}'
           flow-name: ci_beta
+        
