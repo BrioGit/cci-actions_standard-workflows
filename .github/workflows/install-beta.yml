@@ -35,7 +35,7 @@ jobs:
           cumulusci-version: ${{ inputs.cumulusci-version }}
 
       - name: Deploy Beta Dependencies
-        uses: nimba-actions/run-flow-scratch@v1.0.3
+        uses: nimba-actions/run-flow-scratch@main
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           org-name: beta
