@@ -20,7 +20,7 @@ jobs:
     name: "project-info"
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-solutions/run-flow-scratch@v1 
+      - uses: nimba-actions/run-flow-scratch@v1 
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           org-name: '${{ inputs.org-name }}'
@@ -32,7 +32,7 @@ jobs:
     name: "Feature Test (Namespaced Org)"
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-solutions/feature-test-namespaced@v1
+      - uses: nimba-actions/feature-test-namespaced@v1
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
@@ -54,7 +54,7 @@ jobs:
     needs:
       - build-feature-test-package
     steps:
-      - uses: nimba-solutions/feature-test-2gp@v1
+      - uses: nimba-actions/feature-test-2gp@v1
         with:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
