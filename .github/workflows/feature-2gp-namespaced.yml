@@ -15,19 +15,7 @@ on:
       dev-hub-auth-url:
         required: true
 
-jobs:
-  project-info:
-    name: "project-info"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: nimba-actions/run-flow-scratch@v1 
-        with:
-          dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
-          org-name: '${{ inputs.org-name }}'
-          cumulusci-version: '${{ inputs.cumulusci-version }}'
-          sfdx-version: '${{ inputs.sfdx-version }}'
-          flow-name: cci_project_info
-          
+jobs:     
   feature-test:
     name: "Feature Test (Namespaced Org)"
     runs-on: ubuntu-latest
