@@ -42,7 +42,7 @@ jobs:
     name: "Build Feature Test Package"
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-solutions/build-feature-test-package@v1
+      - uses: nimba-actions/build-feature-test-package@v1
         with:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
