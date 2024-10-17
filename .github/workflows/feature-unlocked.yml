@@ -25,7 +25,7 @@ jobs:
     name: "Feature - Build Test Package"
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-actions/build-unlocked-test-package@v1
+      - uses: nimba-actions/build-unlocked-test-package@main
         with:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
