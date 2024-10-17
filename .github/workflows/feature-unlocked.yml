@@ -7,6 +7,11 @@ on:
       sfdx-version:
         required: false
         type: string
+      debug:
+        description: 'Display debug logs during Flow Execution'
+        required: false
+        default: false
+        type: boolean
     secrets:
       dev-hub-auth-url:
         required: true
@@ -21,6 +26,7 @@ jobs:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
+          debug: '${{ inputs.debug }}'
   build-unlocked-test-package:
     name: "Feature - Build Test Package"
     runs-on: ubuntu-latest
@@ -30,6 +36,7 @@ jobs:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
+          debug: '${{ inputs.debug }}'
   feature-test-2gp:
     name: "Feature - Install Test Package"
     runs-on: ubuntu-latest
@@ -42,4 +49,5 @@ jobs:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
           flow-options: "-o github_package_data__context 'Build Unlocked Test Package'"
+          debug: '${{ inputs.debug }}'
 
