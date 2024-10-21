@@ -48,6 +48,6 @@ jobs:
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
-          flow-options: 'github_package_data__context="Build Unlocked Test Package"'
+          flow-options: github_package_data__context="Build Unlocked Test Package"
           debug: '${{ inputs.debug }}'
 
