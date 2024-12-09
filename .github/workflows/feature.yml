@@ -1,10 +1,6 @@
 on:
   workflow_call:
     inputs:
-      github-token:
-        description: "Required only if running in a private organization."
-        required: false
-        type: string
       cumulusci-version:
         required: false
         type: string
@@ -12,6 +8,8 @@ on:
         required: false
         type: string
     secrets:
+      github-token:
+        required: false
       dev-hub-auth-url:
         required: true
 
