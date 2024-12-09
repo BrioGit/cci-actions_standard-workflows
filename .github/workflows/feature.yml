@@ -1,6 +1,10 @@
 on:
   workflow_call:
     inputs:
+      github-token:
+        description: "Required only if running in a private organization."
+        required: false
+        type: string
       cumulusci-version:
         required: false
         type: string
@@ -16,8 +20,9 @@ jobs:
     name: "Feature Test"
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-actions/feature-test@v1
+      - uses: nimba-actions/feature-test@main
         with:
-          dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
-          cumulusci-version: '${{ inputs.cumulusci-version }}'
-          sfdx-version: '${{ inputs.sfdx-version }}'
+          github-token: "${{ inputs.github-token }}"
+          dev-hub-auth-url: "${{ secrets.dev-hub-auth-url }}"
+          cumulusci-version: "${{ inputs.cumulusci-version }}"
+          sfdx-version: "${{ inputs.sfdx-version }}"
