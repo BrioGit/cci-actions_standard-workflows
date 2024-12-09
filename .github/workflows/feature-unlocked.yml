@@ -13,6 +13,8 @@ on:
         default: false
         type: boolean
     secrets:
+      github-token:
+        required: false
       dev-hub-auth-url:
         required: true
 
@@ -23,6 +25,7 @@ jobs:
     steps:
       - uses: nimba-actions/feature-test@main
         with:
+          github-token: "${{ inputs.github-token }}"
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
@@ -33,6 +36,7 @@ jobs:
     steps:
       - uses: nimba-actions/build-unlocked-test-package@main
         with:
+          github-token: "${{ inputs.github-token }}"
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
@@ -45,6 +49,7 @@ jobs:
     steps:
       - uses: nimba-actions/feature-test-2gp@main
         with:
+          github-token: "${{ inputs.github-token }}"
           dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
