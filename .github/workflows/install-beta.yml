@@ -5,6 +5,8 @@ on:
     secrets:
       dev-hub-auth-url:
         required: true
+      cci-token:
+        required: false
     inputs:
       cumulusci-version:
         required: false
@@ -38,6 +40,7 @@ jobs:
         uses: nimba-actions/run-flow-scratch@main
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
+          cci-token: '${{ secrets.cci-token }}'
           org-name: beta
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
