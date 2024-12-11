@@ -5,6 +5,8 @@ on:
         secrets:
           prod-org-auth-url:
             required: true
+          cci-token:
+            required: false
         inputs:
           cumulusci-version:
             required: false
@@ -37,5 +39,6 @@ jobs:
       - name: Install Prod Release
         uses: nimba-actions/run-flow@v1
         with:
+          cci-token: ${{ secrets.cci-token }}
           org-name: "prod"
           flow-name: install_prod
