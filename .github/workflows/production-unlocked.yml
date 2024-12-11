@@ -5,6 +5,8 @@ on:
     secrets:
       dev-hub-auth-url:
         required: true
+      cci-token:
+        required: false
       openai-api-key:
         required: false
     inputs:
@@ -29,6 +31,7 @@ jobs:
       - uses: nimba-actions/run-flow-scratch@v1 
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
+          cci-token: '${{ secrets.cci-token }}'
           org-name: '${{ inputs.org-name }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           flow-name: release_unlocked_production
