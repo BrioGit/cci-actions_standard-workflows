@@ -53,8 +53,6 @@ jobs:
   build-unlocked-test-package:
     name: "Feature - Build Test Package"
     runs-on: ubuntu-latest
-    needs: [feature-test, feature-test-with-robot]
-    if: always() && (needs.feature-test.result == 'success' || needs.feature-test-with-robot.result == 'success')
     steps:
       - uses: nimba-actions/build-unlocked-test-package@main
         with:
