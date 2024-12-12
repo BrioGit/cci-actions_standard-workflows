@@ -72,9 +72,10 @@ jobs:
       - uses: nimba-actions/feature-test-2gp@main
         with:
           cci-token: "${{ secrets.cci-token }}"
-          dev-hub-auth-url: ${{ secrets.dev-hub-auth-url }}
-          cumulusci-version: '${{ inputs.cumulusci-version }}'
-          sfdx-version: '${{ inputs.sfdx-version }}'
+          dev-hub-auth-url: "${{ secrets.dev-hub-auth-url }}"
+          org-name: "release"
+          cumulusci-version: "${{ inputs.cumulusci-version }}"
+          sfdx-version: "${{ inputs.sfdx-version }}"
           flow-options: |
             github_package_data__context="Build Unlocked Test Package"
           debug: '${{ inputs.debug }}'
