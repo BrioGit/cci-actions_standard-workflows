@@ -16,7 +16,7 @@ jobs:
     name: "Feature Test"
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-actions/feature-test-2gp@v1
+      - uses: nimba-actions/feature-test@v1
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
