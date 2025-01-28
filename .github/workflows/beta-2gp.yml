@@ -1,8 +1,26 @@
 on:
   workflow_call:
     secrets:
-      dev-hub-auth-url: 
-        required: True
+      dev-hub-auth-url:
+        required: true
+      cci-token:
+        required: false
+    inputs:
+      cumulusci-version:
+        required: false
+        type: string
+      sfdx-version:
+        required: false
+        type: string
+      org-name:
+        required: false
+        type: string
+        default: dev
+      debug:
+        description: 'Display debug logs during Flow Execution'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   upload-beta-release-2gp:
@@ -14,6 +32,11 @@ jobs:
       - uses: nimba-actions/release-beta-2gp@v1
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
+          cci-token: '${{ secrets.cci-token }}'
+          org-name: '${{ inputs.org-name }}'
+          cumulusci-version: '${{ inputs.cumulusci-version }}'
+          sfdx-version: '${{ inputs.sfdx-version }}'
+          debug: '${{ inputs.debug }}'
   beta-test:
     name: "Beta Test"
     environment: packaging
@@ -24,3 +47,8 @@ jobs:
       - uses: nimba-actions/beta-test@v1
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
+          cci-token: '${{ secrets.cci-token }}'
+          org-name: '${{ inputs.org-name }}'
+          cumulusci-version: '${{ inputs.cumulusci-version }}'
+          sfdx-version: '${{ inputs.sfdx-version }}'
+          debug: '${{ inputs.debug }}'
