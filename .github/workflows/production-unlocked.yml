@@ -13,6 +13,14 @@ on:
       cumulusci-version:
         required: false
         type: string
+      sfdx-version:
+        required: false
+        type: string
+      debug:
+        description: 'Display debug logs during Flow Execution'
+        required: false
+        default: false
+        type: boolean
       org-name:
         required: false
         type: string
@@ -33,5 +41,7 @@ jobs:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
           org-name: '${{ inputs.org-name }}'
+          debug: '${{ inputs.debug }}'
+          sfdx-version: '${{ inputs.sfdx-version }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           flow-name: release_unlocked_production
