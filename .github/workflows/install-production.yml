@@ -14,6 +14,10 @@ on:
           sfdx-version:
             required: false
             type: string
+          debug:
+            description: 'Enable debug mode'
+            required: false
+            type: boolean
 
 jobs:
   install-production:
@@ -42,3 +46,4 @@ jobs:
           cci-token: ${{ secrets.cci-token }}
           org-name: "prod"
           flow-name: install_prod
+          debug: ${{ inputs.debug }}
