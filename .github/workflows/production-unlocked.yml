@@ -11,17 +11,20 @@ on:
         required: false
     inputs:
       cumulusci-version:
-        description: 'CumulusCI version to use'
         required: false
         type: string
       sfdx-version:
-        description: 'SFDX version to use'
         required: false
         type: string
       debug:
-        description: 'Enable debug mode'
+        description: 'Display debug logs during Flow Execution'
         required: false
+        default: false
         type: boolean
+      org-name:
+        required: false
+        type: string
+        default: dev
 
 jobs:
   upload-beta-release:
@@ -32,12 +35,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: project_repo
+
       - uses: nimba-actions/run-flow-scratch@v1 
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
-          cumulusci-version: '${{ inputs.cumulusci-version }}'
-          sfdx-version: '${{ inputs.sfdx-version }}'
-          debug: '${{ inputs.debug }}'
           cci-token: '${{ secrets.cci-token }}'
           org-name: '${{ inputs.org-name }}'
+          debug: '${{ inputs.debug }}'
+          sfdx-version: '${{ inputs.sfdx-version }}'
+          cumulusci-version: '${{ inputs.cumulusci-version }}'
           flow-name: release_unlocked_production
