@@ -25,6 +25,11 @@ on:
         required: false
         type: string
         default: dev
+      beta-version:
+        description: 'The SubscriberPackageVersion (04t) Id for the target package.'
+        required: false
+        type: string
+      
 
 jobs:
   upload-beta-release:
@@ -45,3 +50,4 @@ jobs:
           sfdx-version: '${{ inputs.sfdx-version }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           flow-name: release_unlocked_production
+          flow-options: '--version_id ${{ inputs.beta-version }}'
