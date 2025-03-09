@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup CumulusCI
-        uses: nimba-actions/setup-cumulus@v1
+        uses: nimba-actions/setup-cumulus@main
         with:
           cumulusci-version: ${{ inputs.cumulusci-version }}
           sfdx-version: ${{ inputs.sfdx-version }}
