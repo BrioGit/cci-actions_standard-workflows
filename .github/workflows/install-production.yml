@@ -34,7 +34,7 @@ jobs:
           sfdx-version: ${{ inputs.sfdx-version }}
 
       - name: Authenticate with Target Org
-        uses: nimba-actions/authorize-org@v1
+        uses: nimba-actions/authorize-org@main
         with:
           auth-url: ${{ secrets.prod-org-auth-url }}
           org-name: "prod"
