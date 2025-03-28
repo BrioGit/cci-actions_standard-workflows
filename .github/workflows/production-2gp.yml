@@ -2,7 +2,25 @@ on:
   workflow_call:
     secrets:
       dev-hub-auth-url:
-        required: True
+        required: true
+      cci-token:
+        required: false
+    inputs:
+      cumulusci-version:
+        required: false
+        type: string
+      sfdx-version:
+        required: false
+        type: string
+      org-name:
+        required: false
+        type: string
+        default: dev
+      debug:
+        description: 'Display debug logs during Flow Execution'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   upload-production-release-2gp:
