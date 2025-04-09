@@ -50,6 +50,4 @@ jobs:
           sfdx-version: '${{ inputs.sfdx-version }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           flow-name: release_unlocked_production
-          flow-options: |
-            version_id=${{ inputs.beta-version }}
-
+          flow-options: ${{ inputs.beta-version && format('version_id={0}', inputs.beta-version) || '' }}
