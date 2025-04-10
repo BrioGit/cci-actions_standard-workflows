@@ -1,11 +1,12 @@
 on:
-  workflow_call:
-    secrets:
+  workflow_call:      
+    inputs:
       dev-hub-auth-url:
+        type: string
         required: true
       cci-token:
+        type: string
         required: false
-    inputs:
       cumulusci-version:
         required: false
         type: string
@@ -31,8 +32,8 @@ jobs:
     steps:
       - uses: nimba-actions/release-production-2gp@main
         with:
-          dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
-          cci-token: '${{ secrets.cci-token }}'
+          dev-hub-auth-url: '${{ inputs.dev-hub-auth-url }}'
+          cci-token: '${{ inputs.cci-token }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
   release-test:
@@ -43,7 +44,7 @@ jobs:
     steps: 
       - uses: nimba-actions/release-test@main
         with:
-          dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
-          cci-token: '${{ secrets.cci-token }}'
+          dev-hub-auth-url: '${{ inputs.dev-hub-auth-url }}'
+          cci-token: '${{ inputs.cci-token }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
