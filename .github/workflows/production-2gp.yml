@@ -32,15 +32,13 @@ jobs:
       
   upload-production-release-2gp:
     needs: [pre-flight]
-    if: needs.pre-flight.outputs.should_promote == 'true'
+    if: needs.pre-flight.outputs.should-promote == 'true'
     name: "Upload Production Release (2GP)"
-    environment: packaging-prod
-    concurrency: packaging
     runs-on: ubuntu-latest
     steps:
       - uses: nimba-actions/release-production-2gp@main
         with:
-          beta-version: ${{ needs.pre-flight.outputs.beta_version }}
+          beta-version: ${{ needs.pre-flight.outputs.beta-version }}
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
