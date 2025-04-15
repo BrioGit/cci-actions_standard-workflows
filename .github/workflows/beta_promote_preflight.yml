@@ -1,0 +1,91 @@
+name: Beta - Promote (Pre-flight)
+
+on:
+  workflow_call:
+    outputs:
+      should-promote:
+        description: 'Whether the promotion should proceed'
+        value: ${{ jobs.pre-flight.outputs.should-promote }}
+      beta-version:
+        description: 'The SubscriberPackageVersion (04t) Id for the target package'
+        value: ${{ jobs.pre-flight.outputs.beta-version }}
+    secrets:
+      cci-token:
+        required: true
+
+jobs:
+  pre-flight:
+    runs-on: ubuntu-latest
+    outputs:
+      should-promote: ${{ steps.check.outputs.should-promote }}
+      beta-version: ${{ steps.check.outputs.beta-version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Release Status
+        id: check
+        run: |
+          # Get all releases for this repo
+          RELEASE_INFO=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/releases")
+
+          # Get the latest regular release (non pre-release)
+          LATEST_RELEASE=$(echo "$RELEASE_INFO" | jq -r '[.[] | select(.prerelease == false)] | max_by(.created_at)')
+
+          # Get the latest pre-release (if any)
+          LATEST_PRERELEASE=$(echo "$RELEASE_INFO" | jq -r '[.[] | select(.prerelease == true)] | max_by(.created_at)')
+
+          # Debugging: Print the latest release and prerelease info
+          echo "Latest Release:"
+          echo "$LATEST_RELEASE"
+          echo "Latest Prerelease:"
+          echo "$LATEST_PRERELEASE"
+
+          # If no regular release exists, skip the comparison (assume it's the first release)
+          if [ "$LATEST_RELEASE" == "null" ]; then
+            echo "First release detected, skipping prerelease comparison"
+          else
+            # Compare the dates of the latest release and prerelease if both exist
+            LATEST_RELEASE_DATE=$(echo "$LATEST_RELEASE" | jq -r '.created_at')
+            LATEST_PRERELEASE_DATE=$(echo "$LATEST_PRERELEASE" | jq -r '.created_at')
+
+            # Check if the prerelease is newer than the latest release
+            if [[ "$LATEST_PRERELEASE_DATE" < "$LATEST_RELEASE_DATE" ]]; then
+              echo "Nothing to release: The latest prerelease is not newer than the latest release."
+              echo "should_promote=false" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+          fi
+
+          # If no prerelease exists, exit with a "Nothing to release" message
+          if [ "$LATEST_PRERELEASE" == "null" ]; then
+            echo "Nothing to release: No prerelease found"
+            echo "should_promote=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # Extract the release notes body from the latest prerelease
+          BODY=$(echo "$LATEST_PRERELEASE" | jq -r '.body')
+
+          # Debugging: Print the entire body of the prerelease
+          echo "Release Notes Body:"
+          echo "$BODY"
+
+          # Extract the 04t ID from the installation links (with correct regex)
+          BETA_VERSION=$(echo "$BODY" | grep -o '04t[A-Za-z0-9]\{15\}' | head -1)
+
+          # Check if the version was found
+          if [ -z "$BETA_VERSION" ]; then
+            echo "Error: Could not find package version ID in release notes"
+            echo "should_promote=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          echo "Found package version: $BETA_VERSION"
+          echo "beta_version=$BETA_VERSION" >> $GITHUB_OUTPUT
+          echo "should_promote=true" >> $GITHUB_OUTPUT
+
+permissions:
+  contents: read
