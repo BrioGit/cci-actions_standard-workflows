@@ -79,13 +79,13 @@ jobs:
           # Check if the version was found
           if [ -z "$BETA_VERSION" ]; then
             echo "Error: Could not find package version ID in release notes"
-            echo "should_promote=false" >> $GITHUB_OUTPUT
+            echo "should-promote=false" >> $GITHUB_OUTPUT
             exit 1
           fi
           
           echo "Found package version: $BETA_VERSION"
           echo "beta_version=$BETA_VERSION" >> $GITHUB_OUTPUT
-          echo "should_promote=true" >> $GITHUB_OUTPUT
+          echo "should-promote=true" >> $GITHUB_OUTPUT
 
 permissions:
   contents: read
