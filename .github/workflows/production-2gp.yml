@@ -25,7 +25,14 @@ on:
         type: boolean
 
 jobs:
+  pre-flight:
+    uses: nimba-actions/standard-workflows/.github/workflows/beta-promote-preflight.yml@main
+    secrets:
+      cci-token: ${{ secrets.cci-token }}
+      
   upload-production-release-2gp:
+    needs: [pre-flight]
+    if: needs.pre-flight.outputs.should_promote == 'true'
     name: "Upload Production Release (2GP)"
     environment: packaging-prod
     concurrency: packaging
@@ -33,6 +40,7 @@ jobs:
     steps:
       - uses: nimba-actions/release-production-2gp@main
         with:
+          beta-version: ${{ needs.pre-flight.outputs.beta_version }}
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
           cumulusci-version: '${{ inputs.cumulusci-version }}'
