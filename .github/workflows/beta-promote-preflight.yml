@@ -54,7 +54,7 @@ jobs:
             # Check if the prerelease is newer than the latest release
             if [[ "$LATEST_PRERELEASE_DATE" < "$LATEST_RELEASE_DATE" ]]; then
               echo "Nothing to release: The latest prerelease is not newer than the latest release."
-              echo "should_promote=false" >> $GITHUB_OUTPUT
+              echo "should-promote=false" >> $GITHUB_OUTPUT
               exit 1
             fi
           fi
@@ -62,7 +62,7 @@ jobs:
           # If no prerelease exists, exit with a "Nothing to release" message
           if [ "$LATEST_PRERELEASE" == "null" ]; then
             echo "Nothing to release: No prerelease found"
-            echo "should_promote=false" >> $GITHUB_OUTPUT
+            echo "should-promote=false" >> $GITHUB_OUTPUT
             exit 1
           fi
 
