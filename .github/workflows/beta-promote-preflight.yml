@@ -28,7 +28,7 @@ jobs:
         id: check
         run: |
           # Get all releases for this repo
-          RELEASE_INFO=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+          RELEASE_INFO=$(curl -s -H "Authorization: token ${{ secrets.cci-token }}" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/releases")
 
           # Get the latest regular release (non pre-release)
