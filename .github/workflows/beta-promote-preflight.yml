@@ -84,7 +84,7 @@ jobs:
           fi
           
           echo "Found package version: $BETA_VERSION"
-          echo "beta_version=$BETA_VERSION" >> $GITHUB_OUTPUT
+          echo "beta-version=$BETA_VERSION" >> $GITHUB_OUTPUT
           echo "should-promote=true" >> $GITHUB_OUTPUT
 
 permissions:
