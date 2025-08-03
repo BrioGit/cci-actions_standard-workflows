@@ -21,6 +21,9 @@ on:
         required: false
         default: false
         type: boolean
+      py-version:
+        required: false
+        type: string
 
 jobs:
   upload-beta-release-2gp:
@@ -37,6 +40,7 @@ jobs:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
           debug: '${{ inputs.debug }}'
+          py-version: '${{ inputs.py-version }}'
   beta-test:
     name: "Beta Test"
     environment: packaging
@@ -52,3 +56,4 @@ jobs:
           cumulusci-version: '${{ inputs.cumulusci-version }}'
           sfdx-version: '${{ inputs.sfdx-version }}'
           debug: '${{ inputs.debug }}'
+          py-version: '${{ inputs.py-version }}'
