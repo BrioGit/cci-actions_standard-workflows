@@ -29,7 +29,7 @@ jobs:
     concurrency: packaging
     runs-on: ubuntu-latest
     steps:
-      - uses: cci-actions_standard-actions/release-beta-2gp@main
+      - uses: BrioGit/cci-actions_release-beta-2gp@main
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
@@ -44,7 +44,7 @@ jobs:
       - upload-beta-release-2gp
     runs-on: ubuntu-latest
     steps: 
-      - uses: cci_actions_standard-actions/beta-test@main
+      - uses: BrioGit/cci-actions_beta-test@main
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
