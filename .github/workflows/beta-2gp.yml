@@ -29,7 +29,7 @@ jobs:
     concurrency: packaging
     runs-on: ubuntu-latest
     steps:
-      - uses: nimba-actions/release-beta-2gp@main
+      - uses: cci-actions_standard-actions/release-beta-2gp@main
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
@@ -44,7 +44,7 @@ jobs:
       - upload-beta-release-2gp
     runs-on: ubuntu-latest
     steps: 
-      - uses: nimba-actions/beta-test@main
+      - uses: cci_actions_standard-actions/beta-test@main
         with:
           dev-hub-auth-url: '${{ secrets.dev-hub-auth-url }}'
           cci-token: '${{ secrets.cci-token }}'
